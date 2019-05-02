@@ -7,23 +7,23 @@ Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
 document.documentElement.style.overflow = 'hidden';
-
 var canvas = document.getElementById("myCanvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var body = document.getElementById("myBody");
 body.style.padding = "0px 0px 0px 0px";
 body.style.margin = "0px 0px 0px 0px";
-
 var ctx = canvas.getContext("2d");
-
 ctx.fillStyle = 'black';
 ctx.fillRect(0,0,canvas.width,canvas.height);
-
 var x = 10;
 var y = 10;
 var vx = 4;
 var vy = 4;
+
+canvas.addEventListener("click", function() {
+document.body.requestFullscreen();
+}, false);
 
 window.setInterval(() => {
 	ctx.fillStyle = 'black';
@@ -43,18 +43,14 @@ window.setInterval(() => {
 	ctx.strokeStyle = "white";
 	ctx.stroke()
 	
-}, 10); 
-
+}, 30); 
 window.addEventListener('resize', resizeCanvas, false);
-
 function resizeCanvas() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0,0,canvas.width,canvas.height);
-
 }
-
 </script>
 
 </body>
