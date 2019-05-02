@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html>
-<body>
+<body id="myBody">
 
-<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="0" height="0">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
+document.documentElement.style.overflow = 'hidden';
+
 var canvas = document.getElementById("myCanvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var body = document.getElementById("myBody");
+body.style.padding = "0px 0px 0px 0px";
+body.style.margin = "0px 0px 0px 0px";
 
-var ctx = c.getContext("2d");
-ctx.moveTo(0,0);
-ctx.lineTo(200,100);
-ctx.stroke();
+var ctx = canvas.getContext("2d");
+
+ctx.fillStyle = 'black';
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+var x = 10;
+var y = 10;
+var vx = 4;
+var vy = 4;
+
+window.setInterval(() => {
+	ctx.fillStyle = 'black';
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+	
+	ctx.beginPath()
+	ctx.arc(x, y, 10, 0, 2*Math.PI);
+	x = x+vx;
+	y = y+vy;	
+	
+	if (x+10 > canvas.width || x-10 < 0)
+		vx *= -1;
+		
+	if (y+10 > canvas.height || y-10 < 0)
+		vy *= -1;
+	
+	ctx.strokeStyle = "white";
+	ctx.stroke()
+	
+}, 10); 
+
+window.addEventListener('resize', resizeCanvas, false);
+
+function resizeCanvas() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	ctx.fillStyle = 'black';
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+
+}
 
 </script>
 
