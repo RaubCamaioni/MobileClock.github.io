@@ -16,34 +16,57 @@ body.style.margin = "0px 0px 0px 0px";
 var ctx = canvas.getContext("2d");
 ctx.fillStyle = 'black';
 ctx.fillRect(0,0,canvas.width,canvas.height);
+
 var x = 10;
 var y = 10;
-var vx = 4;
-var vy = 4;
+var vx = 1;
+var vy = 1;
 
-canvas.addEventListener("click", function() {
+canvas.addEventListener("dblclick", function() {
 document.body.requestFullscreen();
 }, false);
 
+
+var today;
+var date;
+var time;
+var dateTime;
+
 window.setInterval(() => {
+
+	today = new Date();
+	date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	time = ('00'+today.getHours()).slice(-2) + ":" + 
+		   ('00'+today.getMinutes()).slice(-2) + ":" + 
+		   ('00'+today.getSeconds()).slice(-2);
+		   
+	dateTime = date+' '+time;
+
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	
-	ctx.beginPath()
-	ctx.arc(x, y, 10, 0, 2*Math.PI);
+	ctx.font = "bold 75px Courier";
+	ctx.strokeStyle = "white"
+	ctx.strokeText(dateTime, canvas.width/2-400, canvas.height/2)
+	
+	//ctx.beginPath()
+	//ctx.arc(x, y, 10, 0, 2*Math.PI);
 	x = x+vx;
 	y = y+vy;	
 	
-	if (x+10 > canvas.width || x-10 < 0)
-		vx *= -1;
-		
-	if (y+10 > canvas.height || y-10 < 0)
-		vy *= -1;
+	if (x+400 > canvas.width)
+		vx = -1;
+	if (x-10 < 0)
+		vx = 1;
+	if (y+10 > canvas.height)
+		vy = -1;
+	if (y-20 < 0)
+		vy = 1;
+	//ctx.strokeStyle = "white";
+	//ctx.stroke()
 	
-	ctx.strokeStyle = "white";
-	ctx.stroke()
-	
-}, 30); 
+}, 100); 
+
 window.addEventListener('resize', resizeCanvas, false);
 function resizeCanvas() {
 	canvas.width = window.innerWidth;
@@ -51,6 +74,7 @@ function resizeCanvas() {
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 }
+
 </script>
 
 </body>
